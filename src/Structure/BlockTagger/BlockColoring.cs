@@ -53,7 +53,7 @@ namespace Microsoft.PowerToolsEx.BlockTagger
             }
         }
 
-        public Pen GetToolTipPen(IBlockTag tag)
+        public Pen GetToolTipPen(ISemanticBlockTag tag)
         {
             return this.GetColoring(tag.Type).ToolTipPen;
         }
@@ -62,7 +62,7 @@ namespace Microsoft.PowerToolsEx.BlockTagger
             return this.GetColoring(type).ToolTipPen;
         }
 
-        public Pen GetLinePen(IBlockTag tag)
+        public Pen GetLinePen(ISemanticBlockTag tag)
         {
             return this.GetColoring(tag.Type).LinePen;
         }
@@ -71,7 +71,7 @@ namespace Microsoft.PowerToolsEx.BlockTagger
             return this.GetColoring(type).LinePen;
         }
 
-        public Brush GetLineBrush(IBlockTag tag)
+        public Brush GetLineBrush(ISemanticBlockTag tag)
         {
             return this.GetColoring(tag.Type).LineBrush;
         }
@@ -80,7 +80,7 @@ namespace Microsoft.PowerToolsEx.BlockTagger
             return this.GetColoring(type).LineBrush;
         }
 
-        public Brush GetToolTipBrush(IBlockTag tag)
+        public Brush GetToolTipBrush(ISemanticBlockTag tag)
         {
             return this.GetColoring(tag.Type).ToolTipBrush;
         }

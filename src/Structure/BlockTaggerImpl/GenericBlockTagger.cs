@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Text.Tagging;
 
 namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
 {
-    public sealed class GenericBlockTagger : ITagger<IBlockTag>
+    public sealed class GenericBlockTagger : ITagger<ISemanticBlockTag>
     {
         #region private
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
@@ -124,7 +124,7 @@ namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
             _parser = parser;
         }
 
-        public IEnumerable<ITagSpan<IBlockTag>> GetTags(NormalizedSnapshotSpanCollection spans)
+        public IEnumerable<ITagSpan<ISemanticBlockTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
             CodeBlock root = _root;  //this.root could be set on a background thread, so get a snapshot.
             if (root != null)
@@ -147,11 +147,11 @@ namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
             }
         }
 
-        private static IEnumerable<ITagSpan<IBlockTag>> GetTags(CodeBlock block, NormalizedSnapshotSpanCollection spans)
+        private static IEnumerable<ITagSpan<ISemanticBlockTag>> GetTags(CodeBlock block, NormalizedSnapshotSpanCollection spans)
         {
             if (spans.IntersectsWith(new NormalizedSnapshotSpanCollection(block.Span)))
             {
-                yield return new TagSpan<IBlockTag>(block.Span, block);
+                yield return new TagSpan<ISemanticBlockTag>(block.Span, block);
 
                 foreach (var child in block.Children)
                 {

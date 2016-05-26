@@ -20,7 +20,7 @@ namespace Microsoft.VisualStudio.PowerTools.StructureVisualizer
         private IWpfTextView _view;
         private IAdornmentLayer _layer;
         private StructureAdornmentFactory _factory;
-        private ITagAggregator<IBlockTag> _blockTagger;
+        private ITagAggregator<ISemanticBlockTag> _blockTagger;
         private HashSet<VisibleBlock> _visibleBlocks = new HashSet<VisibleBlock>();
         private List<GeometryAdornment> _methodSeparators = new List<GeometryAdornment>();
         private bool _enabled;
@@ -84,7 +84,7 @@ namespace Microsoft.VisualStudio.PowerTools.StructureVisualizer
                     _coloring.Changed += this.OnColoringChanged;
 
                     _view.LayoutChanged += OnLayoutChanged;
-                    _blockTagger = _factory.TagAggregatorFactoryService.CreateTagAggregator<IBlockTag>(_view);
+                    _blockTagger = _factory.TagAggregatorFactoryService.CreateTagAggregator<ISemanticBlockTag>(_view);
                     _blockTagger.BatchedTagsChanged += OnTagsChanged;
 
                     this.RedrawAllAdornments();
@@ -207,7 +207,7 @@ namespace Microsoft.VisualStudio.PowerTools.StructureVisualizer
             }
         }
 
-        private void CreateBlockAdornments(IMappingTagSpan<IBlockTag> tag, NormalizedSnapshotSpanCollection newOrReformattedSpans, double left, double right)
+        private void CreateBlockAdornments(IMappingTagSpan<ISemanticBlockTag> tag, NormalizedSnapshotSpanCollection newOrReformattedSpans, double left, double right)
         {
             NormalizedSnapshotSpanCollection spans = tag.Span.GetSpans(_view.TextSnapshot);
             if (spans.Count > 0)
@@ -372,7 +372,7 @@ namespace Microsoft.VisualStudio.PowerTools.StructureVisualizer
             return new SnapshotPoint(line.Snapshot, i);
         }
 
-        private void CreateBlockAdornment(IBlockTag tag, SnapshotSpan span, double x, double yTop, double yBottom)
+        private void CreateBlockAdornment(ISemanticBlockTag tag, SnapshotSpan span, double x, double yTop, double yBottom)
         {
             LineGeometry line = new LineGeometry(new Point(x, yTop), new Point(x, yBottom));
 
@@ -406,12 +406,12 @@ namespace Microsoft.VisualStudio.PowerTools.StructureVisualizer
 
         private struct VisibleBlock
         {
-            public readonly IBlockTag tag;
+            public readonly ISemanticBlockTag tag;
             public readonly double x;
             public readonly double yTop;
             public readonly double yBottom;
 
-            public VisibleBlock(IBlockTag tag, double x, double yTop, double yBottom)
+            public VisibleBlock(ISemanticBlockTag tag, double x, double yTop, double yBottom)
             {
                 this.tag = tag;
                 this.x = x;

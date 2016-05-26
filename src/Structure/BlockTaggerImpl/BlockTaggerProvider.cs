@@ -9,12 +9,12 @@ namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
 {
     [Export(typeof(ITaggerProvider))]
     [ContentType("CSharp")]
-    [TagType(typeof(IBlockTag))]
+    [TagType(typeof(ISemanticBlockTag))]
     internal class CsharpBlockTaggerProvider : ITaggerProvider
     {
         public ITagger<T> CreateTagger<T>(ITextBuffer buffer) where T : ITag
         {
-            if (typeof(T) == typeof(IBlockTag))
+            if (typeof(T) == typeof(ISemanticBlockTag))
             {
                 GenericBlockTagger tagger = buffer.Properties.GetOrCreateSingletonProperty<GenericBlockTagger>(typeof(CsharpBlockTaggerProvider), delegate
                 {
@@ -30,12 +30,12 @@ namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
 
     [Export(typeof(ITaggerProvider))]
     [ContentType("C/C++")]
-    [TagType(typeof(IBlockTag))]
+    [TagType(typeof(ISemanticBlockTag))]
     internal class CppBlockTaggerProvider : ITaggerProvider
     {
         public ITagger<T> CreateTagger<T>(ITextBuffer buffer) where T : ITag
         {
-            if (typeof(T) == typeof(IBlockTag))
+            if (typeof(T) == typeof(ISemanticBlockTag))
             {
                 GenericBlockTagger tagger = buffer.Properties.GetOrCreateSingletonProperty<GenericBlockTagger>(typeof(CppBlockTaggerProvider), delegate
                 {
@@ -51,12 +51,12 @@ namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
 
     [Export(typeof(ITaggerProvider))]
     [ContentType("Basic")]
-    [TagType(typeof(IBlockTag))]
+    [TagType(typeof(ISemanticBlockTag))]
     internal class VbBlockTaggerProvider : ITaggerProvider
     {
         public ITagger<T> CreateTagger<T>(ITextBuffer buffer) where T : ITag
         {
-            if (typeof(T) == typeof(IBlockTag))
+            if (typeof(T) == typeof(ISemanticBlockTag))
             {
                 GenericBlockTagger tagger = buffer.Properties.GetOrCreateSingletonProperty<GenericBlockTagger>(typeof(VbBlockTaggerProvider), delegate
                                             {
@@ -70,7 +70,7 @@ namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
         }
     }
 
-    internal class DisposableTagger : ITagger<IBlockTag>, IDisposable
+    internal class DisposableTagger : ITagger<ISemanticBlockTag>, IDisposable
     {
         private GenericBlockTagger _tagger;
         public DisposableTagger(GenericBlockTagger tagger)
@@ -87,7 +87,7 @@ namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
                 handler(sender, e);
         }
 
-        public IEnumerable<ITagSpan<IBlockTag>> GetTags(NormalizedSnapshotSpanCollection spans)
+        public IEnumerable<ITagSpan<ISemanticBlockTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
             return _tagger.GetTags(spans);
         }

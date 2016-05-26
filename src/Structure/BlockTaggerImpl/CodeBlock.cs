@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Text;
 
 namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
 {
-    public class CodeBlock : IBlockTag
+    public class CodeBlock : ISemanticBlockTag
     {
         private SnapshotSpan _span;
         private readonly CodeBlock _parent;
@@ -64,7 +64,7 @@ namespace Microsoft.PowerToolsEx.BlockTagger.Implementation
             get { return _type; }
         }
 
-        IBlockTag IBlockTag.Parent
+        ISemanticBlockTag ISemanticBlockTag.Parent
         {
             get
             {

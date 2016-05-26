@@ -5,18 +5,23 @@ using Microsoft.VisualStudio.Text.Tagging;
 
 namespace Microsoft.PowerToolsEx.BlockTagger
 {
-    public interface IBlockTag : ITag
+    public interface ISemanticBlockTag : ITag
     {
+        // to remove
         SnapshotSpan Span { get; }
 
         BlockType Type { get; }
 
+        // to remove
         int Level { get; }
 
+        // to remove
         SnapshotPoint StatementStart { get; }
 
-        IBlockTag Parent { get; }
+        // to remove
+        ISemanticBlockTag Parent { get; }
 
+        // to remove
         FrameworkElement Context(BlockColoring coloring, TextRunProperties properties);
     }
 
